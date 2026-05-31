@@ -11,6 +11,12 @@
     padding: 5%;
     border-radius: 50px;
 }
+.form{
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 5%;
+}
 .tit{
     text-decoration: underline;
     padding-bottom: 2%;
