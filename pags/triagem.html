@@ -5,6 +5,15 @@
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <title>Triagem</title>
+    <!-- ✅ ETAPA 1: Importando Bootstrap via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel='stylesheet' href='../main.css'>
@@ -32,52 +41,354 @@
             </div>
         </div>
     </nav>
-    <div class="form">
-        <form class="row g-3">
-            <div class="col-md-6">
-                <label for="inputEmail4" class="form-label">Email</label>
-                <input type="email" class="form-control" id="inputEmail4">
+    <body>
+
+        <!-- ✅ ETAPA 3: Cabeçalho da página -->
+        <header class="page-header">
+            <div class="container">
+                <h1><i class="bi bi-clipboard2-pulse-fill me-2"></i>Ficha de Triagem</h1>
+                <p>Protocolo Manchester — Preencha todos os campos obrigatórios</p>
             </div>
-            <div class="col-md-6">
-                <label for="inputPassword4" class="form-label">Password</label>
-                <input type="password" class="form-control" id="inputPassword4">
-            </div>
-            <div class="col-12">
-                <label for="inputAddress" class="form-label">Address</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-            </div>
-            <div class="col-12">
-                <label for="inputAddress2" class="form-label">Address 2</label>
-                <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-            </div>
-            <div class="col-md-6">
-                <label for="inputCity" class="form-label">City</label>
-                <input type="text" class="form-control" id="inputCity">
-            </div>
-            <div class="col-md-4">
-                <label for="inputState" class="form-label">State</label>
-                <select id="inputState" class="form-select">
-                    <option selected>Choose...</option>
-                    <option>...</option>
-                </select>
-            </div>
-            <div class="col-md-2">
-                <label for="inputZip" class="form-label">Zip</label>
-                <input type="text" class="form-control" id="inputZip">
-            </div>
-            <div class="col-12">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                    <label class="form-check-label" for="gridCheck">
-                        Check me out
-                    </label>
+        </header>
+
+        <main class="container py-4" style="max-width: 860px;">
+
+            <!-- ✅ ETAPA 4: tag <form> com novalidate para controle JS -->
+            <form id="formTriagem" class="needs-validation" novalidate>
+
+                <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+                <!-- SEÇÃO 1 — DADOS PESSOAIS               -->
+                <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+                <div class="section-card">
+                    <p class="section-title"><i class="bi bi-person-fill"></i> Dados Pessoais</p>
+
+                    <!-- Nome completo -->
+                    <div class="mb-3">
+                        <label for="nome" class="form-label">Nome Completo *</label>
+                        <input type="text" class="form-control" id="nome" name="nome"
+                            placeholder="Ex: Maria Oliveira dos Santos" required />
+                        <div class="invalid-feedback">Por favor, informe o nome completo.</div>
+                    </div>
+
+                    <!-- Data de nascimento + CPF/RG lado a lado (grid Bootstrap) -->
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-4">
+                            <label for="nascimento" class="form-label">Data de Nascimento *</label>
+                            <input type="date" class="form-control" id="nascimento" name="nascimento" required />
+                            <div class="invalid-feedback">Informe a data de nascimento.</div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="documento" class="form-label">CPF / RG *</label>
+                            <input type="text" class="form-control" id="documento" name="documento"
+                                placeholder="000.000.000-00" required />
+                            <div class="invalid-feedback">Informe o CPF ou RG.</div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="telefone" class="form-label">Telefone *</label>
+                            <input type="tel" class="form-control" id="telefone" name="telefone"
+                                placeholder="(00) 9 0000-0000" required />
+                            <div class="invalid-feedback">Informe o telefone.</div>
+                        </div>
+                    </div>
+
+                    <!-- Sexo — radio buttons com Bootstrap -->
+                    <div class="mb-1">
+                        <label class="form-label d-block">Sexo *</label>
+                        <div class="d-flex gap-4 flex-wrap">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="sexo" id="sexoM" value="masculino"
+                                    required />
+                                <label class="form-check-label" for="sexoM">Masculino</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="sexo" id="sexoF" value="feminino" />
+                                <label class="form-check-label" for="sexoF">Feminino</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="sexo" id="sexoO" value="outro" />
+                                <label class="form-check-label" for="sexoO">Outro / Prefiro não dizer</label>
+                            </div>
+                        </div>
+                        <div class="invalid-feedback d-block" id="sexo-error"
+                            style="display:none!important;font-size:.85em;color:#ef4444;"></div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-12">
-                <button type="submit" class="btn btn-primary">Sign in</button>
-            </div>
-        </form>
-    </div>
+
+                <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+                <!-- SEÇÃO 2 — DADOS DE SAÚDE               -->
+                <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+                <div class="section-card">
+                    <p class="section-title"><i class="bi bi-heart-pulse-fill"></i> Dados de Saúde — Biossinais</p>
+
+                    <!-- Biossinais em grid de 4 colunas -->
+                    <div class="row g-3 mb-4">
+
+                        <div class="col-sm-6 col-md-3">
+                            <div class="biosinal-card">
+                                <div class="biosinal-icon">🌡️</div>
+                                <div class="biosinal-label">Temperatura (°C)</div>
+                                <input type="number" class="form-control form-control-sm" id="temperatura"
+                                    name="temperatura" placeholder="Ex: 36.5" step="0.1" min="34" max="43" required />
+                                <div class="invalid-feedback">Informe a temperatura.</div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-3">
+                            <div class="biosinal-card">
+                                <div class="biosinal-icon">💓</div>
+                                <div class="biosinal-label">Freq. Cardíaca (bpm)</div>
+                                <input type="number" class="form-control form-control-sm" id="frequencia"
+                                    name="frequencia" placeholder="Ex: 80" min="30" max="250" required />
+                                <div class="invalid-feedback">Informe a frequência.</div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-3">
+                            <div class="biosinal-card">
+                                <div class="biosinal-icon">🩺</div>
+                                <div class="biosinal-label">Pressão Arterial</div>
+                                <input type="text" class="form-control form-control-sm" id="pressao" name="pressao"
+                                    placeholder="Ex: 120/80" required pattern="\d{2,3}\/\d{2,3}" />
+                                <div class="invalid-feedback">Ex: 120/80</div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-3">
+                            <div class="biosinal-card">
+                                <div class="biosinal-icon">🫁</div>
+                                <div class="biosinal-label">Saturação O₂ (%)</div>
+                                <input type="number" class="form-control form-control-sm" id="saturacao"
+                                    name="saturacao" placeholder="Ex: 98" min="50" max="100" required />
+                                <div class="invalid-feedback">Informe a saturação.</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Comorbidades — checkboxes -->
+                    <p class="section-title"
+                        style="border-top:1px solid var(--border); padding-top:1rem; margin-top:0.25rem;">
+                        <i class="bi bi-clipboard-heart"></i> Condições de Saúde
+                    </p>
+
+                    <label class="form-label d-block mb-2">Comorbidades</label>
+                    <div class="row g-2 mb-3 comor-check">
+                        <!-- ✅ Bootstrap usa form-check para checkboxes -->
+                        <div class="col-6 col-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="comorbidades" id="c1"
+                                    value="diabetes" />
+                                <label class="form-check-label" for="c1">Diabetes</label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="comorbidades" id="c2"
+                                    value="hipertensao" />
+                                <label class="form-check-label" for="c2">Hipertensão</label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="comorbidades" id="c3"
+                                    value="cardiopatia" />
+                                <label class="form-check-label" for="c3">Cardiopatia</label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="comorbidades" id="c4"
+                                    value="asma" />
+                                <label class="form-check-label" for="c4">Asma / DPOC</label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="comorbidades" id="c5"
+                                    value="obesidade" />
+                                <label class="form-check-label" for="c5">Obesidade</label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="comorbidades" id="c6"
+                                    value="imunossupressao" />
+                                <label class="form-check-label" for="c6">Imunossupressão</label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="comorbidades" id="c7"
+                                    value="renal" />
+                                <label class="form-check-label" for="c7">Doença Renal</label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="comorbidades" id="c8"
+                                    value="hepatica" />
+                                <label class="form-check-label" for="c8">Doença Hepática</label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="comorbidades" id="c9"
+                                    value="nenhuma" />
+                                <label class="form-check-label" for="c9">Nenhuma</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sintomas -->
+                    <div class="mb-1">
+                        <label for="sintomas" class="form-label">Sintomas Relatados *</label>
+                        <textarea class="form-control" id="sintomas" name="sintomas" rows="3"
+                            placeholder="Descreva os sintomas do paciente (dor, tontura, febre, falta de ar...)"
+                            required></textarea>
+                        <div class="invalid-feedback">Descreva os sintomas do paciente.</div>
+                    </div>
+                </div>
+
+                <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+                <!-- SEÇÃO 3 — CLASSIFICAÇÃO DE RISCO       -->
+                <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+                <div class="section-card">
+                    <p class="section-title"><i class="bi bi-exclamation-triangle-fill"></i> Classificação de Risco *
+                    </p>
+
+                    <!-- ✅ Radio group customizado com cards visuais -->
+                    <div class="risco-grid" id="riscoGroup">
+
+                        <div class="risco-option azul">
+                            <input type="radio" name="risco" id="rAzul" value="azul" required />
+                            <label for="rAzul">
+                                <span class="dot"></span>
+                                🔵 Azul
+                                <small style="font-weight:300;font-size:.7rem;">Não urgente</small>
+                            </label>
+                        </div>
+
+                        <div class="risco-option verde">
+                            <input type="radio" name="risco" id="rVerde" value="verde" />
+                            <label for="rVerde">
+                                <span class="dot"></span>
+                                🟢 Verde
+                                <small style="font-weight:300;font-size:.7rem;">Pouco urgente</small>
+                            </label>
+                        </div>
+
+                        <div class="risco-option amarelo">
+                            <input type="radio" name="risco" id="rAmarelo" value="amarelo" />
+                            <label for="rAmarelo">
+                                <span class="dot"></span>
+                                🟡 Amarelo
+                                <small style="font-weight:300;font-size:.7rem;">Urgente</small>
+                            </label>
+                        </div>
+
+                        <div class="risco-option laranja">
+                            <input type="radio" name="risco" id="rLaranja" value="laranja" />
+                            <label for="rLaranja">
+                                <span class="dot"></span>
+                                🟠 Laranja
+                                <small style="font-weight:300;font-size:.7rem;">Muito urgente</small>
+                            </label>
+                        </div>
+
+                        <div class="risco-option vermelho">
+                            <input type="radio" name="risco" id="rVermelho" value="vermelho" />
+                            <label for="rVermelho">
+                                <span class="dot"></span>
+                                🔴 Vermelho
+                                <small style="font-weight:300;font-size:.7rem;">Emergência</small>
+                            </label>
+                        </div>
+
+                    </div>
+                    <div class="text-danger mt-2" id="risco-error" style="font-size:.83rem; display:none;">
+                        Selecione a classificação de risco.
+                    </div>
+                </div>
+
+                <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+                <!-- SEÇÃO 4 — SUBMIT                       -->
+                <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <small class="text-muted">* Campos obrigatórios</small>
+                    <button type="submit" class="btn-submit">
+                        <i class="bi bi-send-fill me-2"></i>Enviar Triagem
+                    </button>
+                </div>
+
+                <!-- ✅ Toast de sucesso (Bootstrap component) -->
+                <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                    <div id="toastSucesso" class="toast align-items-center text-bg-success border-0" role="alert">
+                        <div class="d-flex">
+                            <div class="toast-body fw-semibold">
+                                ✅ Triagem registrada com sucesso!
+                            </div>
+                            <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                                data-bs-dismiss="toast"></button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </main>
+
+        <!-- ✅ ETAPA 8: Bootstrap JS (necessário para Toast e outros componentes) -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script>
+            // ✅ ETAPA 9: Validação customizada com JS
+            const form = document.getElementById('formTriagem');
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                let valido = true;
+
+                // Validação nativa do Bootstrap
+                if (!form.checkValidity()) {
+                    form.classList.add('was-validated');
+                    valido = false;
+                }
+
+                // Validação manual: sexo (radio)
+                const sexoSelecionado = form.querySelector('input[name="sexo"]:checked');
+                const sexoError = document.getElementById('sexo-error');
+                if (!sexoSelecionado) {
+                    sexoError.textContent = 'Selecione o sexo.';
+                    sexoError.style.display = 'block';
+                    valido = false;
+                } else {
+                    sexoError.style.display = 'none';
+                }
+
+                // Validação manual: risco (radio group customizado)
+                const riscoSelecionado = form.querySelector('input[name="risco"]:checked');
+                const riscoError = document.getElementById('risco-error');
+                if (!riscoSelecionado) {
+                    riscoError.style.display = 'block';
+                    valido = false;
+                } else {
+                    riscoError.style.display = 'none';
+                }
+
+                // Se tudo válido, exibe o toast de sucesso
+                if (valido) {
+                    const toast = new bootstrap.Toast(document.getElementById('toastSucesso'));
+                    toast.show();
+                    // Aqui você enviaria os dados para o backend (fetch/axios)
+                    console.log('Dados prontos para envio!');
+                }
+            });
+        </script>
+    </body>
+
+    </html>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
